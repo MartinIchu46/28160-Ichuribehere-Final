@@ -1,4 +1,4 @@
-class Producto {
+/*class Producto {
     constructor(id, nombre, precio,imagen) {
         this.id = id;
         //this.marca = marca;
@@ -15,7 +15,7 @@ const FerrariLaferrari = new Producto(3, "Ferrari Laferrari", 5000, "./img/ferra
 const CadillacFleetwood = new Producto(4, "Cadillac Fleetwood", 4500, "./img/cadillac-rosa-greenlight.jpg")
 //const ChevroletCorvette = new Producto(5,"Jhonny Lightning", "Chevrolet Corvette 1956", 2500)
 
-let productos = [MazdaRX7, LamborghiniDiablo, FerrariLaferrari,CadillacFleetwood]
+let productos = [MazdaRX7, LamborghiniDiablo, FerrariLaferrari,CadillacFleetwood]*/
 
 /*const productos = [
     {
@@ -52,32 +52,26 @@ let productos = [MazdaRX7, LamborghiniDiablo, FerrariLaferrari,CadillacFleetwood
     }
 ]*/
 
+let divProductos= document.getElementsByClassName('.container')
 
-const container = document.querySelector(".container");
-const main = document.querySelector("#main");
+async function obtenerProductos() {
+    const response= await fetch('./json/productos.json')
+    return await response.json()
+}
 
-const sidebar= document.querySelector(".sidebar")
-const btnCarrito = document.querySelector(".btn--carrito");
-
-let carrito= JSON.parse(localStorage.getItem("carrito")) || [];
-
-btnCarrito.addEventListener("click", () => {
-    sidebar.classList.toggle("active");// el toggle agrega clase cuando no la tiene y lo quita cuando la tiene
-});
-
-const cargarProductos= () => {
-    productos.forEach((element) => {
-        main.innerHTML +=`
-            <div class="caja">
-                <img class="caja--img" src="${element.imagen}">
-                <div class="caja--datos">
-                    <p class="nombre"> ${element.nombre}</p>
-                    
-                    <p class="precio">$<span>${element.precio}</span></p>
-                <button class="btn-agregar" data-id="${element.id}">Agregar</button>
-                </div>    
-
-            </div>`;
+obtenerProductos().then(productos => {
+    productos.forEach((producto)=>{
+        divProductos.innerHTML += `
+        <div class="card border-primary mb-3" id="producto${producto.id}" style="max-width: 20rem;">
+        <img src="./img/${producto.img}" class="card-img-top" alt="${producto.nombre}">
+        <div class="card-header">${producto.nombre}</div>
+        <div class="card-body">
+          
+          <p class="card-text">$${producto.precio}</p>
+          <p class="card-text">Stock:${producto.stock}</p>
+          <button class="btn-agregar" data-id="${producto.id}">Agregar</button>
+        </div>    
+        `
     });
     const btnAgregar= document.querySelectorAll(".btn-agregar");
     
@@ -90,7 +84,45 @@ const cargarProductos= () => {
 
     })
     );
-};
+})
+const container = document.querySelector(".container");
+const main = document.querySelector("#main");
+
+const sidebar= document.querySelector(".sidebar")
+const btnCarrito = document.querySelector(".btn--carrito");
+
+let carrito= JSON.parse(localStorage.getItem("carrito")) || [];
+
+btnCarrito.addEventListener("click", () => {
+    sidebar.classList.toggle("active");// el toggle agrega clase cuando no la tiene y lo quita cuando la tiene
+});
+
+//const cargarProductos= () => {
+    /*productos.forEach((element) => {
+        main.innerHTML +=`
+            <div class="caja">
+                <img class="caja--img" src="${element.imagen}">
+                <div class="caja--datos">
+                    <p class="nombre"> ${element.nombre}</p>
+                    
+                    <p class="precio">$<span>${element.precio}</span></p>
+                <button class="btn-agregar" data-id="${element.id}">Agregar</button>
+                </div>    
+
+            </div>`;
+    });*/
+    /*const btnAgregar= document.querySelectorAll(".btn-agregar");
+    
+    btnAgregar.forEach(e => 
+        e.addEventListener("click", (e) => {
+            
+           let cardPadre= e.target.parentElement;
+            
+            agregarAlCarrito(cardPadre);// Agregar al carrito la cardPadre
+
+    })
+    );
+};*/
 
 const agregarAlCarrito = (cardPadre) => {
     let producto ={
@@ -167,6 +199,6 @@ const aumentarNumeroCantidadCarrito = ()=>{
     document.querySelector(".cant--carrito").textContent = total;
 }
 aumentarNumeroCantidadCarrito()
-cargarProductos();
+//cargarProductos();
 mostrarCarrito();
 escucharBotonesSidebar();
