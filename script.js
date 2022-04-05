@@ -79,12 +79,14 @@ const cargarProductos= () => {
 
             </div>`;
     });
-    const btnAgregar= document.querySelectorAll("btn-agregar");
-    btnAgregar.forEach((e) => 
+    const btnAgregar= document.querySelectorAll(".btn-agregar");
+    
+    btnAgregar.forEach(e => 
         e.addEventListener("click", (e) => {
-            let cardPadre= e.target.parentElement;
-            console.log(cardPadre);
-            // Agregar al carrito la cardPadre
+            
+           let cardPadre= e.target.parentElement;
+            
+            agregarAlCarrito(cardPadre);// Agregar al carrito la cardPadre
 
     })
     );
@@ -99,13 +101,13 @@ const agregarAlCarrito = (cardPadre) => {
         id: Number(cardPadre.querySelector("button").getAttribute("data-id")),
     };
 
-    let productoEncontrado =carrito.find((e)=>element.id ===producto.id);
+    let productoEncontrado =carrito.find((e)=>e.id ===producto.id);
     if(productoEncontrado) {
         productoEncontrado.cantidad++;
     } else{
         carrito.push(producto);
     }
-    carrito.push(producto);
+    
     mostrarCarrito();
 };
 
@@ -118,8 +120,8 @@ const mostrarCarrito = ()=> {
             <img class="caja--carrito-img" src="${imagen}">
             <div class="caja--carrito--datos">
                 <p class="nombre"> ${nombre}</p>
-                <p class="nombre"> ${marca}</p>
-                <p class="camtidad">CANTIDAD: ${cantidad}</p>
+                
+                <p class="cantidad">CANTIDAD: ${cantidad}</p>
                 <p class="subTotal">Subtotal: $ ${precio * cantidad}</p>
                 <p class="precio">$<span>${precio}</span></p>
             <button class="btn-restar" data-id="${id}">-</button>
@@ -128,10 +130,11 @@ const mostrarCarrito = ()=> {
 
         </div>`;
     });
+aumentarNumeroCantidadCarrito()
 localStorage.setItem("carrito", JSON.stringify(carrito))
 };
 
-const restarProducto = (productorestar)=>{
+const restarProducto = (productoRestar)=>{
     let productoEncontrado = carrito.find(
         (element)=> element.id === Number(productoRestar)
     );
