@@ -11,7 +11,7 @@ body{
 header{
     display: flex;
     align-items: center;
-    background: linear-gradient(270deg,#12a3b6 0%,#e6a8c9 37.25%,#d1bcd0 100%);
+    background: linear-gradient(270deg,#cd3b3c 0%,#f59b60 37.25%,#06515b 100%);
 }
 
 .navigation{
@@ -20,7 +20,7 @@ header{
 
 .btn--carrito{
     border: none;
-    background: linear-gradient(270deg,#12a3b6 0%,#9fdf63 37.25%,#d1bcd0 100%);
+    background: linear-gradient(270deg,#3d4142 0%,#a1a5a7 37.25%,#3d4142 100%);
     border-radius: 10px;
     padding: 10px;
     color: white;

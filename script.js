@@ -52,7 +52,7 @@ let productos = [MazdaRX7, LamborghiniDiablo, FerrariLaferrari,CadillacFleetwood
     }
 ]*/
 
-let divProductos= document.getElementsByClassName('.container')
+let divProductos= document.getElementsByClassName('container')
 
 async function obtenerProductos() {
     const response= await fetch('./json/productos.json')
@@ -75,7 +75,7 @@ obtenerProductos().then(productos => {
     });
     const btnAgregar= document.querySelectorAll(".btn-agregar");
     
-    btnAgregar.forEach(e => 
+    btnAgregar.forEach((e) => 
         e.addEventListener("click", (e) => {
             
            let cardPadre= e.target.parentElement;
@@ -84,8 +84,7 @@ obtenerProductos().then(productos => {
 
     })
     );
-})
-const container = document.querySelector(".container");
+    const container = document.querySelector(".container");
 const main = document.querySelector("#main");
 
 const sidebar= document.querySelector(".sidebar")
@@ -202,3 +201,5 @@ aumentarNumeroCantidadCarrito()
 //cargarProductos();
 mostrarCarrito();
 escucharBotonesSidebar();
+})
+
